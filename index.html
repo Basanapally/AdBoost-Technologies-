@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdBoost Technologies</title>
+
+  <!-- AOS Animations -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: #fff;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      overflow-x: hidden;
+    }
+
+    /* Particles background */
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 40px;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+      animation: slideDown 1.2s ease-in-out;
+      flex-wrap: wrap;
+    }
+    header img {
+      max-width: 140px; /* Bigger logo */
+      margin-right: 20px;
+      transition: transform 0.6s ease;
+    }
+    header img:hover {
+      transform: rotate(10deg) scale(1.1);
+    }
+    .header-text {
+      text-align: center;
+      flex: 1;
+    }
+    .header-text h1 {
+      margin: 0;
+      font-size: 36px;
+      background: linear-gradient(45deg, #00c6ff, #0072ff, #00ff88);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shine 6s infinite linear;
+    }
+    .header-text p {
+      margin: 5px 0 0;
+      font-size: 16px;
+      color: #ddd;
+    }
+
+    /* Navigation */
+    nav {
+      background: #111;
+      display: flex;
+      justify-content: center;
+    }
+    nav a {
+      color: #fff;
+      padding: 15px 25px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    nav a:hover {
+      background: #007bff;
+      transform: scale(1.1);
+    }
+
+    /* Hero Section */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      height: 70vh;
+      background: rgba(0,0,0,0.3);
+    }
+    .hero h2 {
+      font-size: 48px;
+      background: linear-gradient(45deg, #ff4b1f, #1fddff);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shine 5s linear infinite;
+      margin: 0;
+    }
+    .hero p {
+      font-size: 20px;
+      margin-top: 10px;
+      color: #fff;
+    }
+    .hero button {
+      margin-top: 20px;
+      padding: 15px 35px;
+      font-size: 18px;
+      background: linear-gradient(45deg, #00ff88, #0072ff);
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .hero button:hover {
+      transform: scale(1.1);
+      background: linear-gradient(45deg, #00c6ff, #00ff88);
+    }
+
+    /* Containers */
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 50px auto;
+      text-align: center;
+    }
+
+    /* Services Section */
+    .services {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
+      justify-content: center;
+    }
+    .service {
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 30px;
+      width: 300px;
+      color: #fff;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      transition: transform 0.5s, box-shadow 0.5s;
+    }
+    .service h3 {
+      color: #00ffcc;
+      margin-bottom: 15px;
+    }
+    .service:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+    }
+
+    /* Stats */
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      margin-top: 50px;
+    }
+    .stat {
+      margin: 20px;
+      font-size: 36px;
+      color: #00ffcc;
+    }
+    .stat span {
+      display: block;
+      font-size: 16px;
+      color: #fff;
+      margin-top: 5px;
+    }
+
+    /* About Section */
+    #about p {
+      max-width: 800px;
+      margin: 20px auto;
+      font-size: 18px;
+      line-height: 1.6;
+      color: #fff;
+    }
+
+    /* Testimonials */
+    .testimonials {
+      margin-top: 50px;
+    }
+    .testimonial-card {
+      background: rgba(255,255,255,0.1);
+      padding: 30px;
+      border-radius: 20px;
+      width: 300px;
+      margin: 20px;
+      display: inline-block;
+      transition: transform 0.5s;
+    }
+    .testimonial-card:hover {
+      transform: scale(1.05) translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+    }
+
+    /* Contact Form */
+    form input, form textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      border: none;
+    }
+    form textarea {
+      resize: none;
+    }
+    form button {
+      width: 100%;
+      background: linear-gradient(45deg, #00ff88, #0072ff);
+      padding: 15px;
+      border: none;
+      border-radius: 30px;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    form button:hover {
+      transform: scale(1.1);
+      background: linear-gradient(45deg, #00c6ff, #00ff88);
+    }
+
+    /* Footer */
+    footer {
+      background: rgba(0,0,0,0.7);
+      padding: 20px 0;
+      text-align: center;
+      color: #ccc;
+      margin-top: 40px;
+    }
+
+    /* Animations */
+    @keyframes shine {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+    @keyframes slideDown {
+      from { transform: translateY(-100%); }
+      to { transform: translateY(0); }
+    }
+
+    /* Floating WhatsApp Button */
+    .whatsapp {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #25D366;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      cursor: pointer;
+      transition: transform 0.3s;
+      z-index: 100;
+    }
+    .whatsapp:hover {
+      transform: scale(1.2);
+    }
+    .whatsapp i {
+      font-size: 28px;
+      color: #fff;
+    }
+
+    @media (max-width:768px) {
+      header {
+        flex-direction: column;
+      }
+      header img {
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Particles Background -->
+  <div id="particles-js"></div>
+
+  <!-- Header -->
+  <header>
+    <img src="AdBoost Logo.png" alt="AdBoost Technologies Logo">
+    <div class="header-text">
+      <h1>AdBoost Technologies</h1>
+      <p>Your Partner in Website, Mobile App Development & Digital Marketing</p>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="#hero">Home</a>
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <h2>We Boost Your Business 🚀</h2>
+    <p>Professional Websites, Mobile Apps & Digital Marketing</p>
+    <button onclick="document.getElementById('contact-form').scrollIntoView({ behavior: 'smooth' });">Get a Free Quote</button>
+  </section>
+
+  <!-- Services Section -->
+  <div class="container" id="services">
+    <h2 data-aos="fade-up">🚀 Our Services</h2>
+    <div class="services">
+      <div class="service" data-tilt data-aos="flip-left">
+        <h3><i class="fas fa-laptop-code"></i> Website Development</h3>
+        <p>Build modern, responsive, and user-friendly websites that represent your brand perfectly. From simple landing pages to complex e-commerce platforms, we create websites that drive traffic, engage visitors, and convert leads into customers.</p>
+      </div>
+      <div class="service" data-tilt data-aos="flip-right">
+        <h3><i class="fas fa-mobile-alt"></i> Mobile App Development</h3>
+        <p>Custom mobile applications for Android and iOS that deliver seamless user experiences. We help your business stay connected with customers, improve engagement, and enhance productivity with feature-rich and performance-optimized apps.</p>
+      </div>
+      <div class="service" data-tilt data-aos="flip-up">
+        <h3><i class="fas fa-bullhorn"></i> Digital Marketing</h3>
+        <p>Grow your business online with targeted digital marketing strategies. We run high-impact campaigns on Google, Facebook, Instagram, and optimize your website for SEO, helping you generate quality leads and measurable ROI.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Section -->
+  <div class="container" id="about">
+    <h2 data-aos="fade-up">👨‍💻 About Us</h2>
+    <p data-aos="fade-up">
+      At AdBoost Technologies, we are passionate about transforming ideas into digital success stories. 
+      From designing sleek, responsive websites to developing high-performance mobile applications, 
+      we provide end-to-end solutions that help businesses thrive in the digital world. 
+      Our expert team also specializes in result-driven digital marketing campaigns, 
+      ensuring your brand reaches the right audience, generates quality leads, and achieves measurable growth. 
+      We combine creativity, technology, and strategy to deliver services that not only meet but exceed client expectations.
+    </p>
+  </div>
+
+  <!-- Contact Section with Form -->
+  <div class="container" id="contact">
+    <h2 data-aos="zoom-in">📞 Contact Us</h2>
+    <p data-aos="fade-up">Phone: +91 9701718181 |+44 7366656656 | Email: info@adboosttechnologies.com</p>
+
+    <form id="contact-form" data-aos="fade-up">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <input type="tel" name="phone" placeholder="Your Phone Number" required>
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 AdBoost Technologies. All Rights Reserved.</p>
+  </footer>
+
+  <!-- WhatsApp Floating Button -->
+  <div class="whatsapp" onclick="window.open('https://wa.me/919701718181', '_blank')">
+    <i class="fab fa-whatsapp"></i>
+  </div>
+
+  <!-- JS Libraries -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+  <script>
+    // ParticlesJS
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { "value": 100 },
+        "size": { "value": 3 },
+        "move": { "speed": 2 },
+        "line_linked": { "enable": true, "distance": 120, "color": "#00ffcc" }
+      }
+    });
+
+    // Tilt Effect
+    VanillaTilt.init(document.querySelectorAll(".service, .testimonial-card"), {
+      max: 25,
+      speed: 400,
+      glare: true,
+      "max-glare": 0.3
+    });
+
+    // AOS Initialization
+    AOS.init({ duration: 1200 });
+
+    // Form Submission Handler
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert("Thank you! Your message has been sent. We will contact you shortly.");
+      this.reset();
+    });
+  </script>
+</body>
+</html>
