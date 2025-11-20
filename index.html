@@ -42,7 +42,7 @@
       flex-wrap: wrap;
     }
     header img {
-      max-width: 140px; /* Bigger logo */
+      max-width: 140px;
       margin-right: 20px;
       transition: transform 0.6s ease;
     }
@@ -251,9 +251,9 @@
 
     /* Floating WhatsApp Button */
     .whatsapp {
-      position: fixed;
+      position:floting;
       bottom: 25px;
-      right: 25px;
+      :left:top: ; 25px;
       background: #25D366;
       width: 60px;
       height: 60px;
@@ -349,7 +349,7 @@
   <!-- Contact Section with Form -->
   <div class="container" id="contact">
     <h2 data-aos="zoom-in">📞 Contact Us</h2>
-    <p data-aos="fade-up">Phone: +91 9701718181 |+44 7366656656 | Email: info@adboosttechnologies.com</p>
+    <p data-aos="fade-up">Phone: +91 9701718181 | +44 7366656656 | Email: info@adboosttechnologies.com</p>
 
     <form id="contact-form" data-aos="fade-up">
       <input type="text" name="name" placeholder="Your Name" required>
@@ -397,12 +397,50 @@
     // AOS Initialization
     AOS.init({ duration: 1200 });
 
-    // Form Submission Handler
+    // Form Submission Handler (saves to Google Sheet)
     document.getElementById('contact-form').addEventListener('submit', function(e) {
       e.preventDefault();
-      alert("Thank you! Your message has been sent. We will contact you shortly.");
-      this.reset();
+
+      const formData = {
+        name: this.name.value,
+        email: this.email.value,
+        phone: this.phone.value,
+        message: this.message.value
+      };
+
+      fetch("https://script.google.com/macros/s/AKfycbywuVOueEpR3bRabXvQmGZXYprtwaQINVmQUwoRRS0OB8u8heD53gn-C4P2n5ujqgYlag/exec", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.result === "success") {
+          alert("✅ Thank you! Your message has been saved.");
+          this.reset();
+        } else {
+          alert("⚠️ Something went wrong: " + data.error);
+          console.error(data);
+        }
+      })
+      .catch(err => {
+        alert("❌ Request failed. Please try again later.");
+        console.error(err);
+      });
     });
   </script>
+  <!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/691f0f4ebabaa119666c4db4/1jagl7imj';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
 </body>
 </html>
